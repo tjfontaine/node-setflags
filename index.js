@@ -26,7 +26,7 @@ exports.flags = {};
 
 function parseArg(arg) {
   var a = arg.split('=');
-  var key = a[0].toLowerCase().replace('_', '-');
+  var key = a[0].toLowerCase().replace(/_/g, '-');
   exports.flags[key] = a[1];
 }
 
@@ -47,6 +47,8 @@ exports.setFlags = function(args) {
   });
 };
 
+var VERSION = process.version.split('.').map(function(v) { return +v.replace('v', ''); });
+
 exports.harmonyRequire = function(module, args) {
   if (!args) {
     args = [
@@ -56,6 +58,19 @@ exports.harmonyRequire = function(module, args) {
       '--harmony_scoping',
       '--harmony_typeof',
     ];
+
+    if (VERSION[0] > 0 || VERSION[1] > 10) {
+      args = args.concat([
+        '--harmony_observation',
+        '--harmony_typed_arrays',
+        '--harmony_array_buffer',
+        '--harmony_generators',
+        '--harmony_iteration',
+        '--harmony_numeric_literals',
+        '--harmony_strings',
+        '--harmony_arrays',
+      ]);
+    }
   }
 
   return exports.require(module, args);
