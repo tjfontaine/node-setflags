@@ -3,6 +3,12 @@
 Set v8 command line flags at runtime, which would theoretically let you enable
 harmony features at runtime.
 
+Most of these flags probably won't take effect for the current context, so to
+get the benefit you may need to run the code in a new `vm.Context`.
+
+Also, I **do not** endorse this as a way to do business, but as a potential stop
+gap to enable a crucial feature.
+
 ## setFlags(args)
 
 Either a string or an array of strings as if you had passed them on the command
