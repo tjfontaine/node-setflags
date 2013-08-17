@@ -22,6 +22,16 @@ var m = require('module');
 
 var setflags = require('bindings')('setflags');
 
+exports.flags = {};
+
+function parseArg(arg) {
+  var a = arg.split('=');
+  var key = a[0].toLowerCase().replace('_', '-');
+  exports.flags[key] = a[1];
+}
+
+process.execArgv.forEach(parseArg);
+
 exports.setFlags = function(args) {
   if (!args)
     return;
@@ -31,7 +41,9 @@ exports.setFlags = function(args) {
 
   args.forEach(function(arg) {
     if (!arg) return;
-    setflags.setFlags(''+arg);
+    arg = ''+arg;
+    parseArg(arg);
+    setflags.setFlags(arg);
   });
 };
 
@@ -44,6 +56,16 @@ exports.harmonyRequire = function(module, args) {
       '--harmony_scoping',
       '--harmony_typeof',
     ];
+  }
+
+  return exports.require(module, args);
+};
+
+exports.require = function(module, args) {
+  if (!args) return;
+
+  if (!Array.isArray(args)) {
+    args = [args];
   }
 
   exports.setFlags(args);

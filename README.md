@@ -16,14 +16,22 @@ line to node.
 
 ## harmonyRequire(module[, args])
 
-Allows you to require a module as if harmony features were enabled, this
-implies the target module will be loaded in a new context.
+Allows you to require a module as if harmony features were enabled, the target
+module will be loaded in a new context.
 
   * `'--harmony_collections'`
   * `'--harmony_modules'`
   * `'--harmony_proxies'`
   * `'--harmony_scoping'`
   * `'--harmony_typeof'`
+
+## require(module, args)
+
+Load the given module in a new context with the following v8 args
+
+## flags
+
+The set of flags either passed at startup or runtime
 
 ## Example
 
