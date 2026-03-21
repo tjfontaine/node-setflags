@@ -1,3 +1,5 @@
+> **⚠️ This project is archived and no longer maintained.**
+
 # setflags
 
 Set v8 command line flags at runtime, which would theoretically let you enable
